@@ -146,19 +146,6 @@ if menu_id == "Home":
     with col2:
         upload()
 
-#################
-
-    #
-# if uploaded_file is not None:
-#     @st.cache
-#     def load_csv():
-#         csv = pd.read_csv(uploaded_file)
-#         return csv
-
-
-
-
-# @st.cache
 def profile(df):
     pr = ProfileReport(df, explorative=True)
     tbl = st_profile_report(pr)
