@@ -610,7 +610,7 @@ if menu_id == "Overview":
                                   height = 400,
                                   autosize = False,
                                   title =f"Internet Services <br><sup>Most customers have {service} acess to any of Internet services</sup>",
-        pip                            title_font_family="Helvetica",
+                               title_font_family="Helvetica",
                                     title_font_size = 18)
                 st.write(fig)
 
