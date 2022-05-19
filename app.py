@@ -13,6 +13,7 @@ from itertools import chain
 import plotly.graph_objects as go
 import plotly.express as px
 import joblib
+import statsmodels.api as sm
 
 # Set Page Icon,Title, and Layout
 st.set_page_config(layout="wide", page_icon = "https://cdn-icons-png.flaticon.com/512/2824/2824717.png", page_title = "Telecom Customer Churn")
@@ -95,8 +96,10 @@ lottie_ml = load_lottieurl("https://assets7.lottiefiles.com/packages/lf20_q5qeoo
 
 
 
-
+# Home Page
 if menu_id == "Home":
+
+    # Display Introduction
     st.markdown("""
     <article>
   <header class="bg-gold sans-seHelvetica">
@@ -109,9 +112,9 @@ if menu_id == "Home":
       </h3>
       <h4 class="f3 fw1 Helvetica i">Analyzing IBM telecommunications data (Kaggle dataset)</h4>
       <h5 class="f6 ttu tracked black-80">By Rafic Srouji</h5>
-    </div>
-  </header>
-  <div class="pa4 ph7-l Helvetica mw9-l center">
+      </div>
+      </header>
+      <div class="pa4 ph7-l Helvetica mw9-l center">
       <p class="f5 f4-ns lh-copy measure mb4" style="text-align: justify;">
         Churn (customer migration) is affecting a growing number of companies. Preventing customer departures becomes crucial, especially when we have a relatively mature market and few new customers for a product or service, and it is easy for the customer to change supplier.
         Tackling customer migration is beneficial because the cost of acquiring new customers is usually higher than keeping existing customers. It's also worth emphasizing that long-term client collaboration has advantages in terms of growing income and company promotion.
@@ -119,15 +122,18 @@ if menu_id == "Home":
       <p class="f5 f4-ns lh-copy measure mb4">
         Apple Cofounder Steve Jobs once said:
       </p>
-    <p class="f6 f5-ns lh-copy measure i pl4 bl bw1 b--gold mb4">
+      <p class="f6 f5-ns lh-copy measure i pl4 bl bw1 b--gold mb4">
       Get closer than ever to your customers. So close that you tell them what they need
       well before they realize it themselves.
-    </p>
-  </div>
-</article>""",unsafe_allow_html=True)
+      </p>
+      </div>
+      </article>""",unsafe_allow_html=True)
 
+    # Display customer churn animation
     st_lottie(lottie_churn, key = "churn", height = 300, width = 1000)
-#
+
+
+    # Show brief introduction about importnace of churn analysis
     st.markdown("""
     <article>
         <div class="pa4 ph7-l Helvetica mw9-l center">
@@ -140,24 +146,35 @@ if menu_id == "Home":
             </p>
             </div>
             </article>""",unsafe_allow_html=True)
+
+    # 3 columns of same size layout
     col1,col2,col3 = st.columns([1,1,1])
+
+    # First column - Show Upload Animation
     with col1:
         st_lottie(lottie_upload, key = "upload",height = 200, width = 600)
+    # Second Column - Display Upload Widget
     with col2:
         upload()
 
+
+# Retreive detailed report of the Exploratory Data Analysis
 def profile(df):
     pr = ProfileReport(df, explorative=True)
     tbl = st_profile_report(pr)
     return  tbl
 
+# Save the data in memory
 df = st.session_state['table']
+# Some Cleaning
 df['PaymentMethod'] = df['PaymentMethod'].str.replace(' (automatic)', '', regex=False)
+
+
+# EDA page
 
 if menu_id == "EDA":
 
-
-    # df = load_csv()
+    # Drop unnecessary columns
     df1 = df.drop(['Latitude','Longitude','Churn_Index','First Name','Last Name','Full Name'],axis=1)
     # transform TotalCharges column to numeric
     df1['TotalCharges'] = pd.to_numeric(df1['TotalCharges'], errors='coerce')
@@ -165,9 +182,10 @@ if menu_id == "EDA":
     df1['PaymentMethod'] = df1['PaymentMethod'].str.replace(' (automatic)', '', regex=False)
 
 
-
+    # 2 Column Layouts of Same Size
     col4,col5 = st.columns([1,1])
 
+    # First Column - Shows Description of EDA
     with col4:
         st.markdown("""
         <h3 class="f2 f1-m f-headline-l measure-narrow lh-title mv0">
@@ -181,6 +199,7 @@ if menu_id == "EDA":
             """,unsafe_allow_html = True)
         global eda_button
 
+        # Customize Button
         button = st.markdown("""
         <style>
         div.stButton > button{
@@ -209,40 +228,55 @@ if menu_id == "EDA":
 
             }
         </style>""", unsafe_allow_html=True)
+        # Display Button
         eda_button= st.button("Explore Your Data")
 
-###
+
+    # Second Column - Display EDA Animation
     with col5:
         st_lottie(lottie_eda, key = "eda",height = 300, width = 800)
 
+    # User Clicks on Button, then profile report of the uplaoded or existing dataframe will be displayed
     if eda_button:
         profile(df1)
 
 
+# Dashboard Page
 if menu_id == "Overview":
-    # st.write(df)
-    df_gender = df.groupby(['gender'],as_index=False).size()
-    df_churn = df[df['Churn'] == 'Yes']
-    df['TotalCharges']= pd.to_numeric(df['TotalCharges'], errors='coerce')
-    # s = "${:,.2f}".format(1)
 
+    # Get Percentage of Gender
+    df_gender = df.groupby(['gender'],as_index=False).size()
+
+    # Change Total Charges to numeric
+    df['TotalCharges']= pd.to_numeric(df['TotalCharges'], errors='coerce')
+
+    # Get unique list of Citites
     city = [['All'],df['City'].unique().tolist()]
     City = list(chain(*city))
 
+    # Create 4 column layouts of same size for the filters
     filters = st.columns(4)
-##
+
+    # First Filter - Churn
     with filters[0]:
         churn = st.selectbox('Churn',options = ['All','Yes','No'])
 
+    # Second Filter - Senior Citizen
     with filters[1]:
         senior = st.selectbox('Senior Citizen', options = ['All','Yes','No'])
 
+    # Third Filter - Dependents
     with filters[2]:
         dependents = st.selectbox('Dependents', options = ['All','Yes','No'])
 
+    # Foruth Filter - Partner
     with filters[3]:
         partner = st.selectbox('Partner', options = ['All','Yes','No'])
-#E####
+
+
+    # Since we have 4 filters and to avoid error,
+    # we have to make a total of 16 combination of possibilites
+
     # Condition 1
     if (churn != 'All') & (senior != 'All') & (dependents != 'All') & (partner != 'All'):
 
@@ -262,7 +296,7 @@ if menu_id == "Overview":
     elif (churn != 'All') & (senior != 'All') & (dependents == 'All') & (partner != 'All'):
 
         df_filtered = df[(df['Churn'] == churn) & (df['SeniorCitizen'] == senior) & (df['Partner'] == partner)]
-#
+
     # Condition 5
     elif (churn != 'All') & (senior != 'All') & (dependents != 'All') & (partner == 'All'):
 
@@ -325,64 +359,49 @@ if menu_id == "Overview":
 
 
 
-
-
-
-#     fig = go.Figure(data = [go.Pie(labels = df_gender['gender'], values = df_gender['size'], hole = 0.5)])
-#     # fig = px.pie(df_gender , values='size', names='gender')
-#     fig.add_layout_image(
-#         dict(
-#             source="https://images.plot.ly/language-icons/api-home/python-logo.png",
-#             xref="x",
-#             yref="y",
-#             x=0,
-#             y=3,
-#             sizex=2,
-#             sizey=2,
-#             sizing="stretch",
-#             opacity=0.5,
-#             layer="below")
-# )
-#     st.write(fig)
-#     col6,col7,col8 = st.columns(3)
-##
-#
-        #can apply customisation to almost all the properties of the card, including the progress bar
-    theme_bad = {'bgcolor': '#FFF0F0','title_color': 'red','content_color': 'red','icon_color': 'red', 'icon': 'fa fa-times-circle'}
-
+    #can apply customisation to almost all the properties of the card, including the progress bar
     theme_customers= {'bgcolor': '#f6f6f6','title_color': '#2A4657','content_color': '#0178e4','progress_color': '#0178e4','icon_color': '#0178e4', 'icon': 'fa fa-user-friends'}
     theme_churn = {'bgcolor': '#f6f6f6','title_color': '#2A4657','content_color': '#0178e4','progress_color': '#0178e4','icon_color': '#0178e4', 'icon': 'fa fa-running'}
     theme_charges = {'bgcolor': '#f6f6f6','title_color': '#2A4657','content_color': '#0178e4','progress_color': '#0178e4','icon_color': '#0178e4', 'icon': 'fa fa-hand-holding-usd'}
     theme_tenure = {'bgcolor': '#f6f6f6','title_color': '#2A4657','content_color': '#0178e4','progress_color': '#0178e4','icon_color': '#0178e4', 'icon': 'fa fa-business-time'}
-###
+
+    # Set 4 info cards
     info = st.columns(4)
+
+    # First KPI - Number of Custoemrs
     with info[0]:
- # can just use 'good', 'bad', 'neutral' sentiment to auto color the card
         hc.info_card(title='# of Customers', content=df_filtered.shape[0], bar_value = (df_filtered.shape[0]/df.shape[0])*100,sentiment='good', theme_override = theme_customers)
-    ##
+    # Second KPI - Number of Churened Customers
     with info[1]:
         hc.info_card(title='Churns', content=df_filtered[df_filtered['Churn']=='Yes'].shape[0], bar_value = (df_filtered[df_filtered['Churn']=='Yes'].shape[0]/df[df['Churn']=='Yes'].shape[0])*100,sentiment='good', theme_override = theme_churn)
 
+    # Third KPI - Total Charges
     with info[2]:
-        # st.write(f"${df['TotalCharges'].sum():,.2f}")
         hc.info_card(title='Total Charges', content=numerize.numerize(df_filtered['TotalCharges'].sum(), 2)+'$', bar_value = (df_filtered['TotalCharges'].sum()/df['TotalCharges'].sum())*100,sentiment='good', theme_override = theme_charges)
+    # Fourth KPI - Average Tenure
     with info[3]:
         hc.info_card(title='Average Tenure', content=str(np.round(df_filtered['tenure'].mean(),2)) + ' Months', bar_value = (np.round(df_filtered['tenure'].mean(),2)/df['tenure'].max())*100,sentiment='good', theme_override = theme_tenure)
 
-
+    # Set first 3 sets of viusals
     viz1 = st.columns(3)
-#
-    with viz1[0]:
 
+    # Donut Chart - Gender Percentage
+    with viz1[0]:
+            # Group By Gender and get the count
             df_gender = df_filtered.groupby(['gender'],as_index=False).size()
 
+            # Calculate the Percentage Differnece between  genders
             gender_range = (abs(df_gender['size'][0]-df_gender['size'][1])/df_gender['size'].sum()) * 100
 
+            # In case the Differnece was greater than 10%, then the customers are not balanced in terms of gender
             if gender_range <= 10:
 
+                # Plot Donut Chart
                 fig = go.Figure(data = [go.Pie(labels = df_gender['gender'], values = df_gender['size'], hole = 0.6)])
+                # Assign Colors to Male and Female
                 fig.update_traces(marker = dict(colors=['#0178e4','#00284C']))
 
+                # Add image to the plot
                 fig.add_layout_image(
                             dict(
                                 source="https://cdn-icons-png.flaticon.com/512/28/28591.png",
@@ -392,58 +411,61 @@ if menu_id == "Overview":
                                   xanchor="center", yanchor="middle"
                                                                 )
                                         )
+                # Set Size and Title of the Plot
                 fig.update_layout(width = 400,
                                 height = 400,
                                 autosize=False,
                                 title = f"Gender Percentage <br><sup>Our customer base is almost balanced in terms of gender</sup>",
                                  title_font_family="Helvetica",
                                   title_font_size = 18  )
-
+                # Show Figure
                 st.write(fig)
 
-            else:
-                fig = go.Figure(data = [go.Pie(labels = df_gender['gender'], values = df_gender['size'], hole = 0.6)])
-                fig.update_traces(marker = dict(colors=['#0178e4','#00284C']))
+            # Incase the gender Percentage was less than or equal to 10%, then update the title
 
+            else:
+                # Plot Donut Chart
+                fig = go.Figure(data = [go.Pie(labels = df_gender['gender'], values = df_gender['size'], hole = 0.6)])
+                # Assign Colors to Male and Female
+                fig.update_traces(marker = dict(colors=['#0178e4','#00284C']))
+                # Add image to the plot
                 fig.add_layout_image(
                             dict(
                                 source="https://cdn-icons-png.flaticon.com/512/28/28591.png",
                                   xref="paper", yref="paper",
                                   x=0.5, y=0.5,
                                   sizex=0.3, sizey=0.3,
-                                  xanchor="center", yanchor="middle"
-                                                                )
-                                        )
+                                  xanchor="center", yanchor="middle"))
+                # Set Size and Title of the Plot
                 fig.update_layout(width = 400,
                                 height = 400,
                                 autosize=False,
                                 title = f"Gender Percentage <br><sup>Our customer base is not balanced in terms of gender</sup>",
                                  title_font_family="Helvetica",
                                   title_font_size = 18  )
-
+                # Show Plott
                 st.write(fig)
 
 
 
 
 
-##############
+    # Second Plot - Display the Distribution of Tenure with bin size = 12
     with viz1[1]:
-
+        # Histogram Chart
         fig = go.Figure(data=[go.Histogram(x=df_filtered['tenure'],
                                            xbins = dict(start = 0, end = 12 * round(df_filtered['tenure'].max()/12),size=12),
                                            marker_color = "#0178e4")])
+        # Set theme and dimensions
         fig.update_layout(template = "simple_white",
                          width = 500,
                          height = 400)
-
-        # fig.update_xaxes(tickvals = df_filtered['tenure'][0::12])
+        # Show Plot
         st.write(fig)
 
-
+    # Third Plot - Display RelationShip between Tenure and Total Charges
     with viz1[2]:
-
-
+        # Scatter Plot
         fig = px.scatter(df_filtered, x="tenure",
                         y="TotalCharges",
                         color = 'Churn',
@@ -451,14 +473,12 @@ if menu_id == "Overview":
                         color_discrete_map={
                             'Yes' : '#0178e4',
                             'No': '#01427e'})
-
-
+        # Get the parameters of a fitted linear regression model
         results = px.get_trendline_results(fig)
-
+        # Get R-squared
         r2 = results.px_fit_results.iloc[0].rsquared
-        # fig = go.Figure(data=[go.Scatter(x=df_filtered['tenure'],
-                                         # y=df_filtered['TotalCharges'])])
 
+        # In case r2 > 0.5, then we assume the relationship is linear between Tenure and TotalCharges
         if r2> 0.5:
             fig.update_layout(template = "simple_white",
                             title = f"Total Charges vs Tenure<br><sup>Total Charges seem to have a linear relationship with Tenure</sup>",
@@ -467,6 +487,7 @@ if menu_id == "Overview":
                             width = 500,
                             height = 400)
 
+        # In case r2<=0.5, then the relationship between Tenure and Total Charges is not linear
         else:
             fig.update_layout(template = "simple_white",
                             title = f"Total Charges vs Tenure<br><sup>Total Charges does not seem to have a linear relationship with Tenure</sup>",
@@ -475,21 +496,14 @@ if menu_id == "Overview":
                             width = 500,
                             height = 400)
 
-
-
-
-
-
-        # st.write(r2)
-
-
-
-        # fig.update_xaxes(tickvals = df_filtered['tenure'][0::12])
         st.write(fig)
 
+    # Set 3 additonal columns
     viz2 = st.columns(3)
 
+    # Foruth Plot - Scatter Map
     with viz2[0]:
+        # Scatter Map
         fig = go.Figure(data=go.Scattergeo(
             lon = df_filtered['Longitude'],
             lat = df_filtered['Latitude'],
@@ -504,17 +518,8 @@ if menu_id == "Overview":
             cmax = df_filtered['TotalCharges'].max(),
             colorbar_title="Total Charges ($)"
             )))
-            # marker_color = df_filtered['TotalCharges'],
 
-
-        if city != 'All':
-#
-            city_noun = 'city'
-
-        else:
-
-            city_noun = 'cities'
-
+        # Set the dimensions and style of map
         fig.update_layout(
         title = f'Total Charges in California',
         title_font_family="Helvetica",
@@ -532,32 +537,37 @@ if menu_id == "Overview":
             subunitwidth = 0.5
         ),
     )
+        # Show Plot
         st.write(fig)
 
+    # Fifth Plot - Donut Chart of Contract Terms
     with viz2[1]:
+        # Get the count of each contract type
         df_contract = df_filtered.groupby(['Contract'],as_index=False).size()
+        # Get name of most susbcribed contract
         contract = df_contract[df_contract['size']==df_contract['size'].max()].reset_index()['Contract'][0]
 
-
+        # Set colors to classes
         colors = {'Month to Month': '#0178e4',
                   'One Year' : '#00284C',
                   'Two Year': '#00080F'}
 
-
+        # Convert to Series
         s = pd.Series(colors)
-
+        # Set Donut Chart
         fig = go.Figure(data = [go.Pie(labels = df_contract['Contract'], values = df_contract['size'], hole = 0.6)])
+        # Update Colors
         fig.update_traces(marker = dict(colors = s))
-
+        # Add Image to the Plot
         fig.add_layout_image(
                     dict(
                         source="https://cdn-icons-png.flaticon.com/512/684/684872.png",
                           xref="paper", yref="paper",
                           x=0.5, y=0.5,
                           sizex=0.3, sizey=0.3,
-                          xanchor="center", yanchor="middle"
-                                                        )
-                                )
+                          xanchor="center", yanchor="middle"))
+
+        # Set dimensions and style of plot
         fig.update_layout(width = 400,
                         height = 400,
                         autosize=False,
@@ -567,19 +577,20 @@ if menu_id == "Overview":
                           title_font_size = 18)
 
 
-
+        # Show Plot
         st.write(fig)
 
-
+    # Sixth Plot - Bar Chart displaying number of occurences of each Internet Service
     with viz2[2]:
-
+        # Get count of each category of InternetService
         df_internet = df_filtered.groupby(['InternetService'],as_index = False).size().sort_values(by = 'size', ascending = False)
+        # Get the category with highest occurences
         service = df_internet[df_internet['size']==df_internet['size'].max()].reset_index()['InternetService'][0]
-
+        # If Most customers does not have access to any Internet Service, adjust tthe title
         if service != 'No':
-
-
+            # Bat Chart
             fig = px.bar( df_internet,x = 'InternetService', y = 'size')
+            # Set dimensions and size of plot
             fig.update_layout(template = "simple_white",
                               width = 500,
                               height = 400,
@@ -587,8 +598,10 @@ if menu_id == "Overview":
                               title =f"Internet Services <br><sup>Most customers have access to {service} services</sup>",
                                title_font_family="Helvetica",
                                 title_font_size = 18)
+            # Show Plot
             st.write(fig)
 
+        # Same Procedure as before
         else:
 
                 fig = px.bar( df_internet,x = 'InternetService', y = 'size')
@@ -597,7 +610,7 @@ if menu_id == "Overview":
                                   height = 400,
                                   autosize = False,
                                   title =f"Internet Services <br><sup>Most customers have {service} acess to any of Internet services</sup>",
-                                   title_font_family="Helvetica",
+        pip                            title_font_family="Helvetica",
                                     title_font_size = 18)
                 st.write(fig)
 
