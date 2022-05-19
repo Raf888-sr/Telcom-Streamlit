@@ -77,7 +77,7 @@ menu_data = [
 menu_id = hc.nav_bar(menu_definition = menu_data,
                     sticky_mode = 'sticky',
                     sticky_nav = True,
-                    hide_streamlit_markers = True,
+                    hide_streamlit_markers = False,
                     override_theme = {'txc_inactive': 'white',
                                         'menu_background' : '#0178e4',
                                         'txc_active':'#0178e4',
