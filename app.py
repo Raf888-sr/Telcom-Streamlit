@@ -1244,7 +1244,7 @@ if menu_id == "Application":
 
     df_input = user_features()
 
-    model = joblib.load("pipejoblib")
+    model = joblib.load("pipe.joblib")
     # st.write(model)
     # st.write(df_input)#
     # st.write(model.predict(df_input))
