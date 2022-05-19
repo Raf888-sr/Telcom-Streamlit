@@ -60,7 +60,7 @@ def upload():
             st.session_state['table'] = pd.read_csv(uploaded_file)
             return st.session_state['table']
     else:
-        st.session_state['table'] = pd.read_csv(r"https://raw.githubusercontent.com/Raf888-sr/Telcom-Streamlit/main/telcom.csv")
+        st.session_state['table'] = pd.read_csv("telcom.csv"")
         return st.session_state['table']
 
 
@@ -116,7 +116,7 @@ if menu_id == "Home":
       <h5 class="f6 ttu tracked black-80">By Rafic Srouji</h5>
       </div>
       </header>
-      <div class="pa4 ph7-l Helvetica mw9-l center">
+      <div class="pa4 ph7-l mw9-l center">
       <p class="f5 f4-ns lh-copy measure mb4" style="text-align: justify;">
         Churn (customer migration) is affecting a growing number of companies. Preventing customer departures becomes crucial, especially when we have a relatively mature market and few new customers for a product or service, and it is easy for the customer to change supplier.
         Tackling customer migration is beneficial because the cost of acquiring new customers is usually higher than keeping existing customers. It's also worth emphasizing that long-term client collaboration has advantages in terms of growing income and company promotion.
