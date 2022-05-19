@@ -58,7 +58,7 @@ def upload():
             st.session_state['table'] = pd.read_csv(uploaded_file)
             return st.session_state['table']
     else:
-        st.session_state['table'] = pd.read_csv(r"D:\Desktop\Rafic\msba\MSBA 370 - Data Driven Diggital Marketing\streamlit\telcom.csv")
+        st.session_state['table'] = pd.read_csv(r"https://raw.githubusercontent.com/Raf888-sr/Telcom-Streamlit/main/telcom.csv")
         return st.session_state['table']
 
 
