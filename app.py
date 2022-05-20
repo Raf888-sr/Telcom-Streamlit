@@ -620,8 +620,8 @@ if menu_id == "Overview":
                 st.write(fig)
 
    # Display 6 Animated Cards
-   st.write("Services Information")
-   st.write("----")
+    st.title("Services Information")
+    st.write("-----")
    # In this Section, the cards corresponds to the Percentage of customers having additonal services
     cols = st.columns(6)
 
