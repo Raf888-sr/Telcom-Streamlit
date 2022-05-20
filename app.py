@@ -500,7 +500,7 @@ if menu_id == "Overview":
                             title_font_size = 18,
                             width = 500,
                             height = 400)
-
+        # Show Plot
         st.write(fig)
 
     # Set 3 additonal columns
@@ -619,9 +619,11 @@ if menu_id == "Overview":
                                     title_font_size = 18)
                 st.write(fig)
 
-#
+   # Display 6 Animated Cards
+   # In this Section, the cards corresponds to the Percentage of customers having additonal services
     cols = st.columns(6)
 
+    # Online Security
     with cols[0]:
         st.markdown(f"""
         <html
@@ -656,7 +658,7 @@ if menu_id == "Overview":
             </body>
             </html>""", unsafe_allow_html = True)
 
-
+        # Online Backup
         with cols[1]:
             st.markdown(f"""
             <html
@@ -691,6 +693,7 @@ if menu_id == "Overview":
                 </body>
                 </html>""", unsafe_allow_html = True)
 
+            # Device Protection
             with cols[2]:
                 st.markdown(f"""
                 <html
@@ -725,7 +728,7 @@ if menu_id == "Overview":
                     </body>
                     </html>""", unsafe_allow_html = True)
 
-
+            # Tech Support
             with cols[3]:
                 st.markdown(f"""
                 <html
@@ -760,6 +763,7 @@ if menu_id == "Overview":
                     </body>
                     </html>""", unsafe_allow_html = True)
 
+                # Streaming TV
                 with cols[4]:
                     st.markdown(f"""
                     <html
@@ -794,7 +798,7 @@ if menu_id == "Overview":
                         </body>
                         </html>""", unsafe_allow_html = True)
 
-
+                # Streaming Movies
                 with cols[5]:
                     st.markdown(f"""
                     <html
@@ -829,48 +833,38 @@ if menu_id == "Overview":
                         </body>
                         </html>""", unsafe_allow_html = True)
 
-        # st.markdown("""
-        # <style>
-        # div.stButton > button{
-        # background-color: #0178e4;
-        # color:#ffffff;
-        # box-shadow: #094c66 4px 4px 0px;
-        # border-radius:8px 8px 8px 8px;
-        # transition : transform 200ms,
-        # box-shadow 200ms;
-        # }
-        # </style>""", unsafe_allow_html=True)
-
-
-####
-
-
+# Profiling Page
 if menu_id == "Profiling":
 
+    # Set one centered column for image,name and risk level
     col1,col2,col3,col4,col5 = st.columns([1,0.5,2,0.5,1])
+    # Set 5 animated cards describing some of the customer's characteristics
     cols = st.columns(5)
-    # col6,col7,col8,col9,col10 = st.columns([1,0.5,2,0.5,1])
-    #col2 = st.columns(3)
 
 
-
+    # Profile of Customer
     with col3:
-
-#
+        # Select ID of the Customer
         selected_customer = st.selectbox("Select Customer ID", options = df['customerID'].unique())
+        # Filter the data based on the selected ID
         selected_id = df[df['customerID'] == selected_customer].reset_index()
+        # Get Churn Index for the selected customer
         selected_churn = selected_id['Churn_Index'][0]
 
+        # High Risk
         if selected_churn > 0.5:
             risk_level = 'High Risk'
             color = '#00284c'
+        # Moderate Risk
         elif selected_churn > 0.3 and selected_churn <=0.5:
             risk_level = 'Moderate Risk'
             color = '#1e73b7'
+        # Low Risk
         else:
             risk_level = 'Low Risk'
             color = '#0178e4'
-        # for i in selected_id['gender']:
+
+        # Show male image
         if selected_id['gender'][0] == 'Male':
 
               st.write(f"""
@@ -883,7 +877,8 @@ if menu_id == "Profiling":
                 <div style="vertical-align:center;color:{color};font-size:25px;text-align:center;padding-top:30px;margin-left:1em";>
                   {risk_level}
                 </div>""",unsafe_allow_html = True)
-#
+
+        # Show female image
         else:
              st.write(f"""
            <div>
@@ -897,8 +892,8 @@ if menu_id == "Profiling":
                 </div>""",unsafe_allow_html = True)
 
 
+    # City
     with cols[0]:
-                # hc.info_card(title='City', content=selected_id['City'][0],sentiment='good', theme_override = theme_location)
             st.markdown(f"""
             <html
             <head>
@@ -932,6 +927,7 @@ if menu_id == "Profiling":
                 </body>
                 </html>""", unsafe_allow_html = True)
 
+    # Tenure
     with cols[1]:
         if selected_id['tenure'][0] != 1:
             month = 'Months'
@@ -970,9 +966,7 @@ if menu_id == "Profiling":
                 </body>
                 </html>""", unsafe_allow_html = True)
 
-
-
-
+    # Total Charges
     with cols[2]:
         st.markdown(f"""
             <html
@@ -1007,7 +1001,7 @@ if menu_id == "Profiling":
                 </body>
                 </html>""", unsafe_allow_html = True)
 
-
+        # Contract
         with cols[3]:
             st.markdown(f"""
                 <html
@@ -1042,7 +1036,7 @@ if menu_id == "Profiling":
                     </body>
                     </html>""", unsafe_allow_html = True)
 
-
+        # Payment Method
         with cols[4]:
             st.markdown(f"""
                 <html
@@ -1077,47 +1071,12 @@ if menu_id == "Profiling":
                     </body>
                     </html>""", unsafe_allow_html = True)
 
-
-
-    # col4,col5,col6 = st.columns([1,1,1])
-    #
-    # with col4:
-    #
-    #     st.markdown(f"""
-    #                 <html
-    #                 <head>
-    #                     <title>Card Hover Effect</title>
-    #                     <meta name="viewport" content="width=device-width, initial-scale=1">
-    #                     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
-    #                     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-    #                     crossorigin="anonymous">
-    #                 </head>
-    #                 <body>
-    #                 <div class="container">
-    #                     <div class="card">
-    #                         <div class="slide slide1">
-    #                             <div class="content">
-    #                                 <div class="icon">
-    #                                 <i class="fa fa-circle-check" aria-hidden="true"></i>
-    #                                 </div>
-    #                             </div>
-    #                         </div>
-    #                     <div class="slide slide2">
-    #                         <div class="content">
-    #                         <h3>
-    #                         {selected_id['Contract'][0]}
-    #                         </h3>
-    #                     </div>
-    #                     </div>
-    #                     </div>
-    #                     </div>
-    #                     </body>
-    #                     </html>""", unsafe_allow_html = True)
-
-
+# Machine Learning Application
 if menu_id == "Application":
 
     col = st.columns(2)
+
+    # Article
     with col[0]:
         st.markdown("""
         <h3 class="f2 f1-m f-headline-l measure-narrow lh-title mv0">
@@ -1129,14 +1088,21 @@ if menu_id == "Application":
          </p>
             """,unsafe_allow_html = True)
 
+    # Lottie Animation
     with col[1]:
         st_lottie(lottie_ml, key = "churn", height = 300, width = 800)
 
+    # Get Numerical features
+    # Monthly Charges are dropped since have high multicollinearity with total Charges
     numerical_features = ['TotalCharges','tenure']
+
+    # Get Categorical Features
     categorical_features = ['gender','SeniorCitizen','Partner','Dependents','PhoneService','MultipleLines','InternetService','OnlineSecurity','OnlineBackup','DeviceProtection','TechSupport',
                             'StreamingTV','StreamingMovies','Contract','PaperlessBilling','PaymentMethod']
 
+    # Subset Data based on numerical features
     df_numerical = df[numerical_features]
+    # Subset Data based on categorical features
     df_categorical = df[categorical_features]
 
     # Features
@@ -1147,7 +1113,11 @@ if menu_id == "Application":
 
     y = df['Churn']
 
+    # Define a Function of several inputs for the user to fill
+
     def user_features():
+
+        # Demographic Featrues
 
         st.title('Demographic Information')
 
@@ -1163,9 +1133,11 @@ if menu_id == "Application":
 
         st.write("------")
 
+        # Account Features
+
         st.title('Customer Account Information')
         cols2 = st.columns(5)
-#
+
         with cols2[0]:
             tenure_months = st.number_input("Tenure",value = 12.00, min_value = 0.0)
 
@@ -1178,16 +1150,18 @@ if menu_id == "Application":
 
         with cols2[3]:
             payment_method = st.selectbox("Payment Method",("Electric check","Mailed Checked","Bank Transfer","Credit Card"))
-            # phone_service = st.selectbox("Phone Services",("Yes","No"))
+
 
         with cols2[4]:
             total_charges = st.number_input("Total Charges", value = 100.00, min_value =0.00)
 
 
         st.write("------")
+
+        # Services Feature
         st.title("Services Information")
         cols3 = st.columns(3)
-#####
+
         with cols3[0]:
             phone_service = st.selectbox("Phone Services",("Yes","No"))
 
@@ -1220,10 +1194,7 @@ if menu_id == "Application":
         with cols5[2]:
             streaming_movies = st.selectbox("Streaming Movies",("Yes","No","No internet service"))
 
-        # monthly_charges = st.number_input("Monthly Charges", value = 20, min_value = 0)
-        # with cols6[2]:
-        #     tenure_months = st.number_input("Tenure",value = 12.00, min_value = 0.0)
-
+        # Transform the inputs into a dataframe shape of size 1 so the model predict the outcome
         dataframe = {'gender':gender,
                     'SeniorCitizen':senior_citizen,
                     'Partner':partner,
@@ -1241,35 +1212,35 @@ if menu_id == "Application":
                     'Contract': contracts,
                     'PaperlessBilling': paper,
                     'PaymentMethod': payment_method,
-                    # 'MonthlyCharges': monthly_charges,
                     'TotalCharges':total_charges}
         features= pd.DataFrame(dataframe, index=[0])
         return features
 
     df_input = user_features()
 
+    # Load fitted model
+
     model = joblib.load("pipe.joblib")
-    # st.write(model)
-    # st.write(df_input)#
-    # st.write(model.predict(df_input))
 
     st.write("")
     st.write("")
     st.write("")
 
-    # button,result= st.columns([1,2])
-    # with button:
+
     predict = st.button('Predict')
 
-    # with result:
-#########
+
+    # Show the Outcome of the Model
     if predict:
         res = model.predict(df_input)
+
+
         if res == 0:
             st.write("")
             st.write("")
 
             col1,col2 = st.columns([0.1,1])
+            # Show Check Sign
             with col1:
                 st.image("https://cdn-icons-png.flaticon.com/512/709/709510.png",width =80)
                 st.write('''
@@ -1279,6 +1250,7 @@ if menu_id == "Application":
                                 }
                </style>
                 ''', unsafe_allow_html=True)
+            # Customer Unlikely To Churn
             with col2:
                 st.markdown("""<h3 style="color:#0178e4;font-size:35px;">
                    The customer with above information is not subject to Churn
@@ -1288,6 +1260,7 @@ if menu_id == "Application":
                  st.write("")
 
                  col3,col4 = st.columns([0.1,1])
+                 # Show Warning Message
                  with col3:
                      st.image("https://cdn-icons-png.flaticon.com/512/159/159469.png",width =80)
                      st.write('''
@@ -1297,137 +1270,9 @@ if menu_id == "Application":
                                      }
                     </style>
                      ''', unsafe_allow_html=True)
+
+                # Customer is at risk churn
                  with col4:
                      st.markdown("""<h3 style="color:#00284c;font-size:35px;">
                         The customer with above information is subject to Churn
                          </h3>""",unsafe_allow_html = True)
-
-
-
-            # st#.markdown("""
-            # <div>
-            #     <img src = "https://cdn-icons-png.flaticon.com/512/159/159469.png" width = 50 style = "display:inline-block;vertical-align:middle;"/>
-            #     <h3 style="color:#0178e4;font-size:50px;vertical-align:middle;">
-            #     Churn
-            #     </h3>
-            # </div>""",unsafe_allow_html = True)
-
-#
-    # with result:
-        # if predict:
-        #     st.markdown("""
-#
-#
-#
-    # if predict:
-    #     st.
-###
-
-
-######
-
-    # with cc[1]:
-    #     st.markdown("""
-    #          <p class="f5 f4-ns lh-copy measure mb4" style="text-align: center;font-size:25px;">
-    #           Customer Details
-    #          </p>""", unsafe_allow_html = True)
-    #     st.markdown(f"""
-    #     <div style="vertical-align:center;font-size:18px;padding-left:30px;padding-top:30px;margin-left:1em";>
-    #     Senior Citizen:&nbsp;{selected_id['SeniorCitizen'][0]}
-    #     </div>""", unsafe_allow_html = True)
-    #
-    #
-    #     st.markdown(f"""
-    #         <div style="vertical-align:center;font-size:18px;padding-left:30px;padding-top:30px;margin-left:1em";>
-    #         Partner:&nbsp;{selected_id['Partner'][0]}
-    #         </div>""", unsafe_allow_html = True)
-    #
-    #     st.markdown(f"""
-    #         <div style="vertical-align:center;font-size:18px;padding-left:30px;padding-top:30px;margin-left:1em";>
-    #         Dependents:&nbsp;{selected_id['Dependents'][0]}
-    #         </div>""", unsafe_allow_html = True)
-    #
-    #     st.markdown(f"""
-    #         <div style="vertical-align:center;font-size:18px;padding-left:30px;padding-top:30px;margin-left:1em";>
-    #         Tenure:&nbsp;{selected_id['tenure'][0]} Months
-    #         </div>""", unsafe_allow_html = True)
-    #
-    #     # st.markdown(f"""
-    #     #     <div style="vertical-align:center;font-size:18px;padding-left:30px;padding-top:30px;margin-left:1em";>
-    #     #     Phone Service:&nbsp;{selected_id['PhoneService'][0]}
-    #     #     </div>""", unsafe_allow_html = True)
-    #     #
-    #     # st.markdown(f"""
-    #     #     <div style="vertical-align:center;font-size:18px;padding-left:30px;padding-top:30px;margin-left:1em";>
-    #     #     Multiple Lines:&nbsp;{selected_id['MultipleLines'][0]}
-    #     #     </div>""", unsafe_allow_html = True)
-    #     #
-    #     # st.markdown(f"""
-    #     #     <div style="vertical-align:center;font-size:18px;padding-left:30px;padding-top:30px;margin-left:1em";>
-    #     #     Internet Service:&nbsp;{selected_id['InternetService'][0]}
-    #     #     </div>""", unsafe_allow_html = True)
-    #     #
-    #     # st.markdown(f"""
-    #     #     <div style="vertical-align:center;font-size:18px;padding-left:30px;padding-top:30px;margin-left:1em";>
-    #     #     Online Security:&nbsp;{selected_id['OnlineSecurity'][0]}
-    #     #     </div>""", unsafe_allow_html = True)
-    #     #
-    #     # st.markdown(f"""
-    #     #     <div style="vertical-align:center;font-size:18px;padding-left:30px;padding-top:30px;margin-left:1em";>
-    #     #     Online Backup:&nbsp;{selected_id['OnlineBackup'][0]}
-    #     #     </div>""", unsafe_allow_html = True)
-    #     #
-    #     # st.markdown(f"""
-    #     #     <div style="vertical-align:center;font-size:18px;padding-left:30px;padding-top:30px;margin-left:1em";>
-    #     #     Online Security:&nbsp;{selected_id['OnlineSecurity'][0]}
-    #     #     </div>""", unsafe_allow_html = True)
-    #
-    #     st.markdown(f"""
-    #         <div style="vertical-align:center;font-size:18px;padding-left:30px;padding-top:30px;margin-left:1em";>
-    #         Payment Method:&nbsp;{selected_id['PaymentMethod'][0]}
-    #         </div>""", unsafe_allow_html = True)
-    #
-    #     st.markdown(f"""
-    #         <div style="vertical-align:center;font-size:18px;padding-left:30px;padding-top:30px;margin-left:1em";>
-    #         Contract:&nbsp;{selected_id['Contract'][0]}
-    #         </div>""", unsafe_allow_html = True)
-    #
-    #     st.markdown(f"""
-    #         <div style="vertical-align:center;font-size:18px;padding-left:30px;padding-top:30px;margin-left:1em";>
-    #         City:&nbsp;{selected_id['City'][0]}
-    #         </div>""", unsafe_allow_html = True)
-    #
-    #     st.markdown(f"""
-    #         <div style="vertical-align:center;font-size:18px;padding-left:30px;padding-top:30px;margin-left:1em";>
-    #         Total Charges:&nbsp;${selected_id['TotalCharges'][0]}
-    #         </div>""", unsafe_allow_html = True)
-
-                # st.image('https://cdn-icons-png.flaticon.com/512/3135/3135715.png',width = 300)
-
-
-
-
-
-
-        # st.write(f)
-         # st.write(f"""
-         #        <div>
-         #            <div style="display:inline-block;vertical-align:center;">
-         #            <img src="https://cdn-icons-png.flaticon.com/512/3126/3126649.png" width=100/>
-         #            </div>
-         #            <div style="display:inline-block;vertical-align:center;font-size:20px;padding-left: 30px;margin-left:1em";>
-         #            {0}
-         #            </div>
-         #            <div style="display:inline-block;vertical-align:center;font-size:20px;padding-left: 30px;margin-left:1em";>
-         #            {0}
-         #            </div>""", unsafe_allow_html=True)
-    # st.write(df1)
-    # st.write(df1.shape)
-    # profile(df1)
-    # st.header('**Input DataFrame**')
-    # profile(df1)
-    # pr = ProfileReport(df1, explorative=True)
-    # st_profile_report(pr)
-    # pr = profile(df1)
-    # pr#
-    # profile(
