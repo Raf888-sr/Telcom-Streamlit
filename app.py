@@ -869,7 +869,7 @@ if menu_id == "Profiling":
 
               st.write(f"""
             <div>
-                <div style="display:inline-block;horizontal-align:middle;padding-top:50px";">
+                <div style="display:inline-block;horizontal-align:middle;padding-left: 250px;xpadding-top:50px";">
                 <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" width=250/>
                 <div style="vertical-align:center;font-size:25px;text-align:center;padding-top:30px;margin-left:1em";>
                  {selected_id['Full Name'][0]}
