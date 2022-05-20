@@ -464,7 +464,7 @@ if menu_id == "Overview":
                          height = 400,
                          title_text= "Tenure Distribution (Months)",
                           title_font_family="Sans Serif",
-                           title_font_size = 18  ))
+                           title_font_size = 18)
         # Show Plot
         st.write(fig)
 
