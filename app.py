@@ -462,7 +462,7 @@ if menu_id == "Overview":
         fig.update_layout(template = "simple_white",
                          width = 500,
                          height = 400,
-                         title = "Tenure Distribution (Months)",
+                         title_text= "Tenure Distribution (Months)",
                           title_font_family="Sans Serif",
                            title_font_size = 18  ))
         # Show Plot
