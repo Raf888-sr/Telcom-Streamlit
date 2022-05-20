@@ -104,7 +104,7 @@ if menu_id == "Home":
     # Display Introduction
     st.markdown("""
     <article>
-  <header class="bg-gold sans-seHelvetica">
+  <header class="bg-gold sans-seSans Serif">
     <div class="mw9 center pa4 pt5-ns ph7-l">
       <time class="f6 mb2 dib ttu tracked"><small>18 May, 2022</small></time>
       <h3 class="f2 f1-m f-headline-l measure-narrow lh-title mv0">
@@ -112,7 +112,7 @@ if menu_id == "Home":
           Machine Learning Project: Telco Customer Churn
         </span>
       </h3>
-      <h4 class="f3 fw1 Helvetica i">Analyzing IBM telecommunications data (Kaggle dataset)</h4>
+      <h4 class="f3 fw1 Sans Serif i">Analyzing IBM telecommunications data (Kaggle dataset)</h4>
       <h5 class="f6 ttu tracked black-80">By Rafic Srouji</h5>
       </div>
       </header>
@@ -138,7 +138,7 @@ if menu_id == "Home":
     # Show brief introduction about importnace of churn analysis
     st.markdown("""
     <article>
-        <div class="pa4 ph7-l Helvetica mw9-l center">
+        <div class="pa4 ph7-l Sans Serif mw9-l center">
             <p class="f5 f4-ns lh-copy measure mb4" style="text-align: justify;">
             In this application, we will explore the churn rate in-depth and pinpoint the pitfalls behind the departure
             of customers and identify at risk customers using a machine learning model that act as an early warning system.
@@ -193,7 +193,7 @@ if menu_id == "EDA":
         <h3 class="f2 f1-m f-headline-l measure-narrow lh-title mv0">
          Know Your Data
          </h3>
-         <p class="f5 f4-ns lh-copy measure mb4" style="text-align: justify;font-family: Helvetica">
+         <p class="f5 f4-ns lh-copy measure mb4" style="text-align: justify;font-family: Sans Serif">
           Before implementing your machine learning model, it is important at the initial stage to explore your data.
           It is a good practice to understand the data first and try gather as many insights from it. EDA is all about
           making sense of data in hand,before getting them dirty with it.
@@ -418,7 +418,7 @@ if menu_id == "Overview":
                                 height = 400,
                                 autosize=False,
                                 title = f"Gender Percentage <br><sup>Our customer base is almost balanced in terms of gender</sup>",
-                                 title_font_family="Helvetica",
+                                 title_font_family="Sans Serif",
                                   title_font_size = 18  )
                 # Show Figure
                 st.write(fig)
@@ -443,7 +443,7 @@ if menu_id == "Overview":
                                 height = 400,
                                 autosize=False,
                                 title = f"Gender Percentage <br><sup>Our customer base is not balanced in terms of gender</sup>",
-                                 title_font_family="Helvetica",
+                                 title_font_family="Sans Serif",
                                   title_font_size = 18  )
                 # Show Plott
                 st.write(fig)
@@ -461,7 +461,10 @@ if menu_id == "Overview":
         # Set theme and dimensions
         fig.update_layout(template = "simple_white",
                          width = 500,
-                         height = 400)
+                         height = 400,
+                         title = "Tenure Distribution (Months)",
+                          title_font_family="Sans Serif",
+                           title_font_size = 18  ))
         # Show Plot
         st.write(fig)
 
@@ -484,7 +487,7 @@ if menu_id == "Overview":
         if r2> 0.5:
             fig.update_layout(template = "simple_white",
                             title = f"Total Charges vs Tenure<br><sup>Total Charges seem to have a linear relationship with Tenure</sup>",
-                            title_font_family="Helvetica",
+                            title_font_family="Sans Serif",
                             title_font_size = 18,
                             width = 500,
                             height = 400)
@@ -493,7 +496,7 @@ if menu_id == "Overview":
         else:
             fig.update_layout(template = "simple_white",
                             title = f"Total Charges vs Tenure<br><sup>Total Charges does not seem to have a linear relationship with Tenure</sup>",
-                            title_font_family="Helvetica",
+                            title_font_family="Sans Serif",
                             title_font_size = 18,
                             width = 500,
                             height = 400)
@@ -524,7 +527,7 @@ if menu_id == "Overview":
         # Set the dimensions and style of map
         fig.update_layout(
         title = f'Total Charges in California',
-        title_font_family="Helvetica",
+        title_font_family="Sans Serif",
         title_font_size = 18,
         width = 400,
         height = 400,
@@ -575,7 +578,7 @@ if menu_id == "Overview":
                         autosize=False,
 
                         title = f"Contract Terms<br><sup>Most customers have subscribed with {contract} plan</sup>",
-                         title_font_family="Helvetica",
+                         title_font_family="Sans Serif",
                           title_font_size = 18)
 
 
@@ -598,7 +601,7 @@ if menu_id == "Overview":
                               height = 400,
                               autosize = False,
                               title =f"Internet Services <br><sup>Most customers have access to {service} services</sup>",
-                               title_font_family="Helvetica",
+                               title_font_family="Sans Serif",
                                 title_font_size = 18)
             # Show Plot
             st.write(fig)
@@ -612,7 +615,7 @@ if menu_id == "Overview":
                                   height = 400,
                                   autosize = False,
                                   title =f"Internet Services <br><sup>Most customers have {service} acess to any of Internet services</sup>",
-                               title_font_family="Helvetica",
+                               title_font_family="Sans Serif",
                                     title_font_size = 18)
                 st.write(fig)
 
@@ -1120,7 +1123,7 @@ if menu_id == "Application":
         <h3 class="f2 f1-m f-headline-l measure-narrow lh-title mv0">
         Know The Risks
          </h3>
-         <p class="f5 f4-ns lh-copy measure mb4" style="text-align: justify;font-family: Helvetica">
+         <p class="f5 f4-ns lh-copy measure mb4" style="text-align: justify;font-family: Sans Serif">
          Now, it's time to detect whether any existing or upcoming customer has a risk to churn.
          Fill out the customers' demographic, account, and services information to see the result.
          </p>
