@@ -526,7 +526,7 @@ if menu_id == "Overview":
 
         # Set the dimensions and style of map
         fig.update_layout(
-        title = f'Total Charges in California',
+        title = f'Customer Spread in California',
         title_font_family="Sans Serif",
         title_font_size = 18,
         width = 400,
