@@ -109,7 +109,7 @@ if menu_id == "Home":
       <time class="f6 mb2 dib ttu tracked"><small>18 May, 2022</small></time>
       <h3 class="f2 f1-m f-headline-l measure-narrow lh-title mv0">
         <span class="bg-black-90 lh-copy white pa1 tracked-tight">
-          Machine Learning Project: Telco Customer Churn
+          Machine Learning Project:  Telco Customer Churn
         </span>
       </h3>
       <h4 class="f3 fw1 Sans Serif i">Analyzing IBM telecommunications data (Kaggle dataset)</h4>
