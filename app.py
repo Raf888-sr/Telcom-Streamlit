@@ -13,7 +13,6 @@ from itertools import chain
 import plotly.graph_objects as go
 import plotly.express as px
 import joblib
-import sklearn
 import statsmodels.api as sm
 
 # Set Page Icon,Title, and Layout
