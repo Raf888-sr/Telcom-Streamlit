@@ -14,6 +14,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 import joblib
 import statsmodels.api as sm
+import sklearn
 
 # Set Page Icon,Title, and Layout
 st.set_page_config(layout="wide", page_icon = "https://cdn-icons-png.flaticon.com/512/2824/2824717.png", page_title = "Telecom Customer Churn")
