@@ -5,7 +5,7 @@ import numpy as np
 import hydralit_components as hc
 import requests
 import inspect
-from pydantic.v1 import BaseSettings
+# from pydantic.v1 import BaseSettings
 from streamlit_lottie import st_lottie
 from pandas_profiling import ProfileReport
 from streamlit_pandas_profiling import st_profile_report
@@ -16,7 +16,7 @@ import plotly.express as px
 import joblib
 import statsmodels.api as sm
 import sklearn
-from pydantic_settings import BaseSettings
+# from pydantic_settings import BaseSettings
 
 # Set Page Icon,Title, and Layout
 st.set_page_config(layout="wide", page_icon = "https://cdn-icons-png.flaticon.com/512/2824/2824717.png", page_title = "Telecom Customer Churn")
