@@ -5,6 +5,7 @@ import numpy as np
 import hydralit_components as hc
 import requests
 import inspect
+from pydantic.v1 import BaseSettings
 from streamlit_lottie import st_lottie
 from pandas_profiling import ProfileReport
 from streamlit_pandas_profiling import st_profile_report
