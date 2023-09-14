@@ -1,5 +1,5 @@
 hydralit_components==1.0.9
-joblib==1.1.0
+joblib==1.3.0
 numerize==0.12
 numpy
 pandas
