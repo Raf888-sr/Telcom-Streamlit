@@ -7,7 +7,7 @@ import requests
 import inspect
 # from pydantic.v1 import BaseSettings
 from streamlit_lottie import st_lottie
-from ydata-profiling import ProfileReport
+from ydata_profiling import ProfileReport
 from streamlit_pandas_profiling import st_profile_report
 from numerize import numerize
 from itertools import chain
